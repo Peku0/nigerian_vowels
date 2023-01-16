@@ -10,6 +10,8 @@ The two subfolders found in the main folder are:
 * 'ForcedAlignment' - stores the 'main.py' file for statistical analysis and extracing metadata on phonetic features in the corpus, also stored in the same folder, the 'meas.py' file for data preprocessing, and the 'cache' folder containing .csv files with exported Phonetic features of speech. 
 * 'scripts' - stores the 'formant_meas' file with a Praat script used for automatic extraction of phonetic data from a corpus of speech.
 
+One folder named 'data' containing recordings and orthographic transcription of Nigerian English speech has not been shared here.
+
 ## References
 <a id="1">[1]</a> 
 Boersma, Paul and Weenink, David. 2022. 
