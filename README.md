@@ -7,7 +7,7 @@ The phonetic data was extracted using Praat [1] scripting and Montreal Forced Al
 
 The two subfolders found in the main folder are:
 
-* 'ForcedAlignment' - stores the 'main.py' file for statistical analysis and extracing metadata on phonetic features in the corpus, also stored in the same folder, the 'meas.py' file for data preprocessing, and the 'cache' folder containing .csv files with exported Phonetic features of speech. 
+* 'ForcedAlignment' - stores the 'main.py' file for statistical analysis and extracing metadata on phonetic features in the corpus, also stored in the same folder, the 'meas.py' file for data preprocessing, and the 'cache' folder containing .csv files with exported Phonetic features of speech, with the 'n1673719069_out-vowel-data-0.txt' file containing NORM-normalised [5] formant measurements (Watt and Fabricius modified method). 
 * 'scripts' - stores the 'formant_meas' file with a Praat script used for automatic extraction of phonetic data from a corpus of speech.
 
 One folder named 'data' containing recordings and orthographic transcription of Nigerian English speech has not been shared here.
@@ -30,5 +30,8 @@ English (Nigeria) MFA dictionary [Computer program]. Version 2.0.0, retrieved 25
 McAuliffe, Michael and Sonderegger, Morgan. 2022a. 
 English (Nigeria) MFA G2P model [Computer program]. Version 2.0.0, retrieved 25 November 2022 from https://mfa-models.readthedocs.io/en/latest/index.html.
 
+<a id="5">[5]</a> 
+Thomas, Erik R. and Tyler Kendall. 2007. 
+NORM: The vowel normalization and plotting suite. [Online Resource: http://ncslaap.lib.ncsu.edu/tools/norm/]
 
 
