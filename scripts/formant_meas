@@ -1,0 +1,80 @@
+# Create an empty table
+table = Create Table with column names: "table", 0, "sound midpoint word phoneme duration intensity F0 F1 F2 F3"
+
+writeInfoLine: "Extracting formants...", newline$
+
+dir$ = "/Users/przemyslawkubiak/PycharmProjects/pyFA/data/FHS-B1-NgE/male/02436_aligned/"
+Create Strings as file list: "speakers", dir$ + "*.wav"
+numberOfSpeakers = Get number of strings
+
+# Loop through each speaker
+for thisSpeaker from 1 to numberOfSpeakers
+
+    select Strings speakers
+    speakerName$ = Get string: thisSpeaker
+    appendInfoLine: speakerName$
+
+    # Read in the Sound file
+    Read from file: dir$ + speakerName$
+    thisSound$ = selected$("Sound")
+
+    # Read in the TextGrid file
+    Read from file: dir$ + speakerName$ - ".wav" + ".TextGrid"
+    thisTextGrid$ = selected$("TextGrid")
+
+	# Extract the number of intervals in the phoneme tier
+	select TextGrid 'thisTextGrid$'
+	numberOfPhonemes = Get number of intervals: 2  
+	appendInfoLine: "There are ", numberOfPhonemes, " intervals."
+	
+	# Create the Formant Object
+	select Sound 'thisSound$'
+	To Formant (burg)... 0 5 5000 0.025 50
+	
+	# Create the output file and write the first line.
+	# outputPath$ = "/Users/przemyslawkubiak/PycharmProjects/pyFA/ForcedAlignment/cache/results_02436.csv"
+	# writeFileLine: "'outputPath$'", "file,time,word,phoneme,duration,F1,F2,F3"
+	
+	# Loop through each interval on the phoneme tier.
+	for thisInterval from 1 to numberOfPhonemes
+	    #appendInfoLine: thisInterval
+	
+	    # Get the label of the interval
+	    select TextGrid 'thisTextGrid$'
+	    thisPhoneme$ = Get label of interval: 2, thisInterval
+	    #appendInfoLine: thisPhoneme$
+	      
+	    # Find the midpoint.
+	    thisPhonemeStartTime = Get start point: 2, thisInterval
+	    thisPhonemeEndTime   = Get end point:   2, thisInterval
+	    duration = thisPhonemeEndTime - thisPhonemeStartTime
+	    midpoint = thisPhonemeStartTime + duration/2
+	    
+	    # Get the word interval and then the label
+	    thisWordInterval = Get interval at time: 1, midpoint
+	    thisWord$ = Get label of interval: 1, thisWordInterval
+
+	
+	      
+	    # Extract formant measurements
+	    select Formant 'thisSound$'
+	    f1 = Get value at time... 1 midpoint Hertz Linear
+	    f2 = Get value at time... 2 midpoint Hertz Linear
+	    f3 = Get value at time... 3 midpoint Hertz Linear
+	
+	    selectObject(table)
+		Append row
+		current_row = Get number of rows
+		Set string value: current_row, "sound", thisSound$
+		Set numeric value: current_row, "midpoint", midpoint
+		Set string value: current_row, "word", thisWord$
+		Set string value: current_row, "phoneme", thisPhoneme$
+		Set numeric value: current_row, "duration", duration
+		Set numeric value: current_row, "F1", f1
+		Set numeric value: current_row, "F2", f2
+		Set numeric value: current_row, "F3", f3
+	
+	endfor
+
+# End looping through speakers
+endfor
